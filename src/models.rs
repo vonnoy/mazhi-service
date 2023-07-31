@@ -1,30 +1,30 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
-struct Hourse {
-    id: i64,              // 主键ID
-    name: String,         // 马的名称
-    images: String,       // 马的图片，多张用英文逗号‘,’隔开
-    breed: String,        // 马的品种
-    birth: u64,           // 马的生日
-    info: String,         // 马的说明信息
-    status_health: u8,    // 马的健康状态:{0:健康, 1:生病, 2: 死亡}
-    status_activity: u8,  // 马的活动状态:{0:空闲, 1:使用中}
-    features: String,     // 马的特点
-    tags: String,         // 马的标签，多个标签用英文逗号‘,’隔开
-    special: String,      // 马的特别说明
-    manager_user_id: u64, // 管理用户ID
-    look_number: u64,     // 浏览人数
-    use_number: u64,      // 使用人数
-    create_at: u64,       // 创建时间
-    update_at: u64,       // 更新时间
-    is_del: bool,         // 是否被删除
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct Horse {
+    pub id: i64,              // 主键ID
+    pub name: String,         // 马的名称
+    pub images: String,       // 马的图片，多张用英文逗号‘,’隔开
+    pub breed: String,        // 马的品种
+    pub birth: u64,           // 马的生日
+    pub info: String,         // 马的说明信息
+    pub status_health: u8,    // 马的健康状态:{0:健康, 1:生病, 2: 死亡}
+    pub status_activity: u8,  // 马的活动状态:{0:空闲, 1:使用中}
+    pub features: String,     // 马的特点
+    pub tags: String,         // 马的标签，多个标签用英文逗号‘,’隔开
+    pub special: String,      // 马的特别说明
+    pub manager_user_id: i64, // 管理用户ID
+    pub look_number: u64,     // 浏览人数
+    pub use_number: u64,      // 使用人数
+    pub create_at: u64,       // 创建时间
+    pub update_at: u64,       // 更新时间
+    pub is_del: bool,         // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct HorseApply {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct HorseApply {
     id: i64,               // 主键ID
-    hourse_id: i64,        // 马的ID
+    horse_id: i64,         // 马的ID
     user_id: i64,          // 申请的用户ID
     approval_user_id: i64, // 审批用户id
     message: String,       // 留言
@@ -35,10 +35,10 @@ struct HorseApply {
     is_del: bool,          // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct HorseAppointment {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct HorseAppointment {
     id: i64,               // 主键ID
-    hourse_id: i64,        // 预约马的ID
+    horse_id: i64,         // 预约马的ID
     user_id: i64,          // 预约的用户ID
     approval_user_id: i64, // 审批用户ID
     start_date: u64,       // 开始时间
@@ -49,10 +49,10 @@ struct HorseAppointment {
     is_del: bool,          // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct HorseReport {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct HorseReport {
     id: i64,             // 主键ID
-    hourse_id: i64,      // 马的ID
+    horse_id: i64,       // 马的ID
     user_id: i64,        // 用户ID
     status_health: u8,   // 马的健康状态:{0:健康, 1:生病, 2: 死亡}
     status_activity: u8, // 马的活动状态:{0:空闲, 1:使用中}
@@ -66,10 +66,10 @@ struct HorseReport {
     is_del: bool,   // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct HorseSignIn {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct HorseSignIn {
     id: i64,          // 主键ID
-    hourse_id: i64,   // 马的ID
+    horse_id: i64,    // 马的ID
     user_id: i64,     // 用户ID
     ip: String,       // IP地址
     location: String, // 当前位置 (经度, 纬度)
@@ -79,8 +79,8 @@ struct HorseSignIn {
     is_del: bool,     // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct Log {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct Log {
     id: i64,         // 主键ID
     user_id: i64,    // 用户ID
     message: String, // 消息
@@ -91,8 +91,8 @@ struct Log {
     is_del: bool,    // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct Message {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct Message {
     id: i64,             // 主键ID
     message_type: u8,    // 0:普通消息, 1:用户反馈
     send_user_id: i64,   // 发送用户ID
@@ -104,8 +104,8 @@ struct Message {
     is_del: bool,        // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct Role {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct Role {
     id: i64,        // 主键ID
     parent_id: i64, // 父ID
     name: String,   // 角色名称
@@ -115,8 +115,8 @@ struct Role {
     is_del: bool,   // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct RoleApply {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct RoleApply {
     id: i64,               // 主键id
     user_id: i64,          // 申请人的ID
     role_id: i64,          // 申请角色的ID
@@ -126,8 +126,8 @@ struct RoleApply {
     is_del: bool,          // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct RolePowerRouter {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct RolePowerRouter {
     id: i64,          // 主键id
     router: String,   // 路由
     is_allow: bool,   // 是否允许访问
@@ -137,8 +137,8 @@ struct RolePowerRouter {
     is_del: bool,     // 是否被删除
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-struct User {
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct User {
     id: i64,              // 主键ID
     role_id: i64,         //权限ID
     username: String,     //用户名
@@ -151,4 +151,22 @@ struct User {
     gender: u8,           //性别{0:女, 1:男, 2:中性}
     phone_number: String, //手机号
     affiliation: String,  //所属集体
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct APIResponse<T> {
+    errcode: u8,
+    message: String,
+    data: T,
+}
+
+#[allow(unused)]
+impl<T> APIResponse<T> {
+    fn new(errcode: u8, message: &str, data: T) -> Self {
+        APIResponse {
+            errcode,
+            message: message.to_string(),
+            data,
+        }
+    }
 }

@@ -9,4 +9,8 @@ impl SQLiteConfig {
             database_path: path.to_string(),
         }
     }
+
+    pub fn database_path(&self) -> String {
+        self.database_path.clone()
+    }
 }
